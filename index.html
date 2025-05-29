@@ -78,6 +78,8 @@
             scroll-behavior: smooth;
             background-color: #F8FAFC;
             overflow-x: hidden;
+            position: relative;
+            padding-bottom: 0;
         }
         
         .glass-card {
@@ -109,7 +111,7 @@
         }
         
         .blob {
-            position: relative;
+            position: fixed;
             z-index: -1;
             border-radius: 50%;
             filter: blur(60px);
@@ -142,7 +144,12 @@
             left: 30%;
             animation: pulse-slow 8s ease-in-out infinite;
         }
-        
+
+        footer {
+            position: relative;
+            z-index: 10; /* Make sure footer is above the blobs */
+        }
+
         .nav-link {
             position: relative;
         }
@@ -681,7 +688,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white pt-16 pb-8 full">
+    <footer class="bg-dark text-white pt-16 pb-8">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div>
