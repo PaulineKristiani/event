@@ -206,6 +206,61 @@
             -ms-overflow-style: none;
             scrollbar-width: none;
         }
+
+        /* Improved mobile menu */
+        .mobile-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 40;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            animation: fadeInDown 0.3s ease-out;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Google Form */
+        .google-form-container {
+            position: relative;
+            padding-bottom: 120%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .google-form-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        @media (min-width: 768px) {
+            .google-form-container {
+                padding-bottom: 0;
+                height: 600px;
+            }
+        }
     </style>
 </head>
 <body class="relative">
@@ -222,14 +277,21 @@
                 <span class="gradient-text">Creative Campus Festival</span>
             </a>
             <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-dark nav-link font-medium">About</a>
-                <a href="#speakers" class="text-dark nav-link font-medium">Speakers</a>
-                <a href="#schedule" class="text-dark nav-link font-medium">Schedule</a>
-                <a href="#register" class="text-dark nav-link font-medium">Register</a>
+                <a href="#about" class="text-dark nav-link font-medium">Tentang Kami</a>
+                <a href="#speakers" class="text-dark nav-link font-medium">Pembicara</a>
+                <a href="#schedule" class="text-dark nav-link font-medium">Jadwal</a>
+                <a href="#register" class="text-dark nav-link font-medium">Pendaftaran</a>
             </div>
-            <button class="md:hidden focus:outline-none text-dark">
+            <button id="mobileMenuButton" class="md:hidden focus:outline-none text-dark" aria-label="Toggle menu">
                 <i class="fas fa-bars text-2xl"></i>
             </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="mobile-menu">
+            <a href="#about" class="text-dark font-medium py-2">Tentang Kami</a>
+            <a href="#speakers" class="text-dark font-medium py-2">Pembicara</a>
+            <a href="#schedule" class="text-dark font-medium py-2">Jadwal</a>
+            <a href="#register" class="text-dark font-medium py-2">Pendaftaran</a>
         </div>
     </nav>
 
@@ -242,11 +304,11 @@
                     <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">Creative Campus <br> <span class="gradient-text bg-gradient-to-r from-white to-white/80">Festival 2025</span></h1>
                     <p class="text-xl md:text-2xl mb-8 text-white/90 max-w-lg">Tempat yang mengumpulkan spektakuler, inovatif, dan kreatifitas dalam waktu 2 hari untuk para Mahasiswa se-Indonesia.</p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="#register" class="bg-white text-primary px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition transform hover:scale-105 shadow-lg flex items-center">
-                            Register Now <i class="fas fa-arrow-right ml-2 animate__animated animate__fadeInRight animate__infinite"></i>
+                        <a href="#Pendaftaran" class="bg-white text-primary px-6 py-3 rounded-full font-semibold hover:bg-gray-100 transition transform hover:scale-105 shadow-lg flex items-center">
+                            Daftar Sekarang <i class="fas fa-arrow-right ml-2 animate__animated animate__fadeInRight animate__infinite"></i>
                         </a>
-                        <a href="#about" class="border-2 border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition transform hover:scale-105 backdrop-blur-sm flex items-center">
-                            <i class="fas"></i> About
+                        <a href="#Tentang" class="border-2 border-white/30 px-6 py-3 rounded-full font-semibold hover:bg-white/10 transition transform hover:scale-105 backdrop-blur-sm flex items-center">
+                            <i class="fas"></i> Tentang Kami
                         </a>
                     </div>
                 </div>
@@ -267,7 +329,7 @@
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
                 <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">THE EVENT</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">About Creative Campus Festival</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Tentang Creative Campus Festival</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Event ini diadakan untuk menjadi wadah ilmu dan tempat perkumpulan mahasiswa di seluruh Kampus Indonesia.</p>
             </div>
             
@@ -279,7 +341,7 @@
                                 <i class="fas fa-calendar-alt text-xl text-primary"></i>
                             </div>
                             <h3 class="font-bold text-dark mb-2">2 Hari</h3>
-                            <p class="text-gray-600">25-26 Juni 2025</p>
+                            <p class="text-gray-600">Rabu-Kamis, 25-26 Juni 2025</p>
                         </div>
                         <div class="bg-gradient-to-br from-secondary/5 to-secondary/10 p-6 rounded-xl border border-secondary/10">
                             <div class="w-12 h-12 bg-secondary/10 rounded-lg flex items-center justify-center mb-4">
@@ -330,7 +392,7 @@
     <section id="speakers" class="py-20 bg-gradient-to-b from-white to-gray-50">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">LEARN FROM</span>
+                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">Belajar dari</span>
                 <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Pembicara Ternama</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Pemimpin Perusahaan dan Pengembang Teknologi Ternama</p>
             </div>
@@ -430,8 +492,8 @@
     <section id="schedule" class="py-20 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-16">
-                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">EVENT PLAN</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Event Schedule</h2>
+                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">Rencana Event Acara</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Jadwal Event</h2>
                 <p class="text-gray-600 max-w-2xl mx-auto">Dua hari penuh dengan pembelajaran inspiratif dan sharing bareng</p>
             </div>
             
@@ -440,7 +502,7 @@
                 <div class="mb-16 animate__animated animate__fadeInLeft">
                     <div class="flex items-center mb-8">
                         <div class="bg-gradient-to-r from-primary to-secondary text-white px-6 py-2 rounded-full font-bold shadow-md">Hari 1</div>
-                        <h3 class="text-xl md:text-2xl font-semibold ml-4 text-dark">25 Juni 2025: Sharing Pembangunan Transformasi Digtal dan Startup Unicorn</h3>
+                        <h3 class="text-xl md:text-2xl font-semibold ml-4 text-dark">25 Juni 2025: Sharing Pembangunan Transformasi Digital dan Startup Unicorn</h3>
                     </div>
                     
                     <div class="space-y-6">
@@ -572,17 +634,13 @@
                         <h3 class="text-2xl font-bold text-dark mb-2">Registration Form</h3>
                         <p class="text-gray-600 mb-8">Fill in your details to secure your spot</p>
                         
-                        <!-- Google Form Embed -->
-                        <div class="h-full">
+                        <!-- Responsive Google Form Embed -->
+                        <div class="google-form-container">
                             <iframe 
                                 src="https://docs.google.com/forms/d/1Pz4DkPMDIUYgCe0dhysN_gZKPo8w1GhtmXoORcgwT9A/viewform?embedded=true" 
-                                width="100%" 
-                                height="600" 
                                 frameborder="0" 
                                 marginheight="0" 
-                                marginwidth="0"
-                                class="rounded-lg shadow-sm border border-gray-200"
-                                style="min-height: 500px;">
+                                marginwidth="0">
                                 Loading…
                             </iframe>
                         </div>
@@ -597,14 +655,14 @@
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6">
             <div class="text-center mb-12">
-                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">SUPPORTED BY</span>
-                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Our Partners</h2>
+                <span class="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-sm font-semibold mb-3">Didukung oleh</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">Partner Kami</h2>
             </div>
             
             <div class="flex flex-wrap justify-center items-center gap-8 md:gap-16">
                 <img src="https://lelogama.go-jek.com/cms_editor/2021/05/28/info-gojek-2.png" alt="Gojek Indonesia" class="h-12 opacity-70 hover:opacity-100 transition">
                 <img src="https://assets.techverse.asia/media/2024/06/27/gpcytxo6fjlfht7mvcb8jg3na5eib3f1iuy8ounm.webp" alt="Init-6" class="h-12 opacity-70 hover:opacity-100 transition">
-                <img src="data:image/png;base64,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" alt="Telkom Indonesia" class="h-12 opacity-70 hover:opacity-100 transition">
+                <img src="https://upload.wikimedia.org/wikipedia/id/thumb/c/c4/Telkom_Indonesia_2013.svg/1200px-Telkom_Indonesia_2013.svg.png" alt="Telkom Indonesia" class="h-12 opacity-70 hover:opacity-100 transition">
                 <img src="https://abpptsi.org/wp-content/uploads/2018/07/Logo_WM_Standar_PNG.png" alt="Universitas Katolik Widya Mandala Surabaya" class="h-12 opacity-70 hover:opacity-100 transition">
             </div>
         </div>
@@ -623,7 +681,7 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-dark text-white pt-16 pb-8">
+    <footer class="bg-dark text-white pt-16 pb-8 full">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
                 <div>
@@ -641,16 +699,16 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-6">Quick Links</h4>
                     <ul class="space-y-3">
-                        <li><a href="#about" class="text-gray-400 hover:text-white transition">About</a></li>
-                        <li><a href="#speakers" class="text-gray-400 hover:text-white transition">Speakers</a></li>
-                        <li><a href="#schedule" class="text-gray-400 hover:text-white transition">Schedule</a></li>
-                        <li><a href="#register" class="text-gray-400 hover:text-white transition">Register</a></li>
+                        <li><a href="#Tentang Kami" class="text-gray-400 hover:text-white transition">Tentang Kami</a></li>
+                        <li><a href="#Pembicara" class="text-gray-400 hover:text-white transition">Pembicara</a></li>
+                        <li><a href="#Jadwal" class="text-gray-400 hover:text-white transition">Jadwal</a></li>
+                        <li><a href="#Pendaftaran" class="text-gray-400 hover:text-white transition">Pendaftaran</a></li>
                         <li><a href="#" class="text-gray-400 hover:text-white transition">FAQs</a></li>
                     </ul>
                 </div>
                 
                 <div>
-                    <h4 class="text-lg font-semibold mb-6">Contact</h4>
+                    <h4 class="text-lg font-semibold mb-6">Kontak</h4>
                     <ul class="space-y-3">
                         <li class="flex items-start text-gray-400">
                             <i class="fas fa-envelope mt-1 mr-3"></i>
@@ -691,62 +749,40 @@
     </footer>
 
     <!-- Back to Top Button -->
-    <button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:shadow-xl">
+    <button id="backToTop" class="fixed bottom-8 right-8 bg-gradient-to-r from-primary to-secondary text-white p-4 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:shadow-xl" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
     </button>
 
     <script>
-        // Form submission with email sending simulation
-        document.getElementById('registrationForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobileMenuButton');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('active');
+            // Toggle aria-expanded attribute
+            const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+            mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
             
-            // Show loading state
-            const submitBtn = this.querySelector('button[type="submit"]');
-            const originalBtnText = submitBtn.innerHTML;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Processing...';
-            submitBtn.disabled = true;
-            
-            // Simulate form submission and email sending
-            setTimeout(() => {
-                // Reset button
-                submitBtn.innerHTML = originalBtnText;
-                submitBtn.disabled = false;
-                
-                // Show success message
-                document.getElementById('successMessage').classList.remove('hidden');
-                document.getElementById('registrationForm').reset();
-                
-                // Scroll to success message
-                document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // In a real implementation, you would:
-                // 1. Send form data to your backend
-                // 2. Backend processes the data and sends confirmation email
-                // Example with fetch API:
-                /*
-                fetch('/api/register', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        fullName: document.getElementById('fullName').value,
-                        email: document.getElementById('email').value,
-                        university: document.getElementById('university').value,
-                        studyProgram: document.getElementById('studyProgram').value,
-                        phone: document.getElementById('phone').value
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        document.getElementById('successMessage').classList.remove('hidden');
-                        document.getElementById('registrationForm').reset();
-                    }
-                })
-                .catch(error => {
-                    alert('Registration failed. Please try again.');
-                });
-                */
-            }, 2000);
+            // Change icon based on state
+            const icon = mobileMenuButton.querySelector('i');
+            if (isExpanded) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.querySelector('i').classList.remove('fa-times');
+                mobileMenuButton.querySelector('i').classList.add('fa-bars');
+            });
         });
 
         // Back to top button
@@ -808,25 +844,30 @@
         // Trigger once on page load
         animateOnScroll();
 
-        // Mobile menu toggle
-        const mobileMenuButton = document.querySelector('.md\\:hidden');
-        const mobileMenu = document.querySelector('.hidden.md\\:flex');
+        // Initialize mobile menu button attributes
+        mobileMenuButton.setAttribute('aria-expanded', 'false');
+        mobileMenuButton.setAttribute('aria-controls', 'mobileMenu');
         
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-            mobileMenu.classList.toggle('flex');
-            mobileMenu.classList.toggle('absolute');
-            mobileMenu.classList.toggle('top-16');
-            mobileMenu.classList.toggle('left-0');
-            mobileMenu.classList.toggle('right-0');
-            mobileMenu.classList.toggle('bg-white');
-            mobileMenu.classList.toggle('p-6');
-            mobileMenu.classList.toggle('shadow-md');
-            mobileMenu.classList.toggle('flex-col');
-            mobileMenu.classList.toggle('space-y-4');
-            mobileMenu.classList.toggle('space-x-0');
-            mobileMenu.classList.toggle('animate__fadeInDown');
-        });
+        // Improved Google Form responsiveness
+        function adjustGoogleFormHeight() {
+            const formContainer = document.querySelector('.google-form-container');
+            if (formContainer) {
+                const width = formContainer.offsetWidth;
+                if (width < 768) {
+                    // Mobile - use aspect ratio
+                    formContainer.style.paddingBottom = '120%';
+                    formContainer.style.height = '0';
+                } else {
+                    // Desktop - fixed height
+                    formContainer.style.paddingBottom = '0';
+                    formContainer.style.height = '600px';
+                }
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', adjustGoogleFormHeight);
+        window.addEventListener('resize', adjustGoogleFormHeight);
     </script>
 </body>
 </html>
